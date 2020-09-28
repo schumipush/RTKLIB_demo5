@@ -1941,7 +1941,8 @@ static void rsp_ntripc_s(ntripc_t *ntripc, int i)
     }
     /* test SOURCE and Source-Agent */
     if (!(p=strstr((char *)con->buff,"SOURCE"))||!(q=strstr(p,"\r\n"))||
-        !(q=strstr(q,"Source-Agent:"))||!strstr(q,"\r\n\r\n")) {
+        !(strstr(q,"Source-Agent:")||strstr(q,"User-Agent:"))||
+        !strstr(q,"\r\n\r\n")) {
         tracet(2,"rsp_ntripc_s: NTRIP request error\n");
         discon_ntripc(ntripc,i);
         return;
