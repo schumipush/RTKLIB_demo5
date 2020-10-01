@@ -1491,7 +1491,7 @@ static int reqntrip_s(ntrip_t *ntrip, char *msg)
     
     tracet(3,"reqntrip_s: state=%d\n",ntrip->state);
     
-    p+=sprintf(p,"SOURCE %s %s\r\n",ntrip->passwd,ntrip->mntpnt);
+    p+=sprintf(p,"SOURCE %s /%s\r\n",ntrip->passwd,ntrip->mntpnt);
     p+=sprintf(p,"Source-Agent: NTRIP %s\r\n",NTRIP_AGENT);
     p+=sprintf(p,"STR: %s\r\n",ntrip->str);
     p+=sprintf(p,"\r\n");
@@ -1948,6 +1948,7 @@ static void rsp_ntripc_s(ntripc_t *ntripc, int i)
         return;
     }
     sscanf(p,"SOURCE %255s %255s",passwd,mntpnt);
+    if (mntpnt&&mntpnt[0]=='/') memmove(mntpnt, mntpnt+1, sizeof(mntpnt-1));
     
     if ((p=strstr((char *)con->buff,"STR: "))&&(q=strstr(p,"\r\n"))) {
         n=MIN(q-(p+5),255);
