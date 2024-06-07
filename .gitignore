@@ -52,3 +52,6 @@ util/simobs/gcc/simobs
 *.qmake.stash
 /app/qtapp/Makefile
 /src/Makefile
+*/.vs
+*/data/obs_nav/*
+*/data_output/*
